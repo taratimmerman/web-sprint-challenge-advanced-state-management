@@ -1,6 +1,20 @@
 import React from 'react';
+import { addNewSmurf } from '../actions';
 
 class AddForm extends React.Component {
+    state = {
+        newSmurf: ''
+      };
+
+      handleChange = e => {
+        this.setState({ newSmurf: e.target.value });
+      };
+
+      addSmurf = e => {
+        e.preventDefault();
+        this.props.addNewSmurf(this.state.newSmurf);
+        this.setState({newSmurf:''});
+      };
 
     render() {
         return(<section>
@@ -11,8 +25,24 @@ class AddForm extends React.Component {
                     <input onChange={this.handleChange} name="name" id="name" />
                 </div>
 
+                <div className="form-group">
+                    <label htmlFor="position">Position:</label><br/>
+                    <input onChange={this.handleChange} name="position" id="position" />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="nickname">Nickname:</label><br/>
+                    <input onChange={this.handleChange} name="nickname" id="nickname" />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="description">Description:</label><br/>
+                    <input onChange={this.handleChange} name="description" id="description" />
+                </div>
+
                 <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: </div>
-                <button>Submit Smurf</button>
+
+                <button onClick={this.addSmurf}>Submit Smurf</button>
             </form>
         </section>);
     }

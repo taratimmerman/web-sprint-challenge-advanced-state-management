@@ -1,9 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { fetchSmurfs } from '../actions';
+import Smurf from './Smurf';
 
 export class SmurfDisplay extends React.Component {
+
     render() {
+
         return(<div>
-            
+            <Smurf />
         </div>)
     }
 }

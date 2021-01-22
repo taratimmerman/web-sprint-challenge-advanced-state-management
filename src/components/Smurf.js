@@ -4,8 +4,12 @@ class Smurf extends React.Component {
     render() {
         const { smurf } = this.props;
 
-        return(<div data-testid="smurf" className="card">
-        </div>);
+        return (
+
+            <div data-testid="smurf" className="card">
+                <p>{smurf}</p>
+            </div>
+        );
     }
 }
 
