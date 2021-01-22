@@ -33,7 +33,6 @@ export const reducer = (state = initialState, action) => {
             ...state,
             error: action.payload
         })
-        //      - The adding a smurf to the smurf list when added into payload
         case(ADD_SMURF):
         const newSmurf = {
             name: action.payload,

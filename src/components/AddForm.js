@@ -1,54 +1,73 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { addNewSmurf } from '../actions';
 
 class AddForm extends React.Component {
     state = {
-        newSmurf: ''
+        formValues: {
+            name: '',
+            position: '',
+            nickname: '',
+            description: ''
+          },
+        formErrors: {
+            name: '',
+            position: '',
+            nickname: '',
+        }
       };
+
+      handleSubmit = e => {
+        e.preventDefault();
+        this.props.addNewSmurf();
+    }
 
       handleChange = e => {
-        this.setState({ newSmurf: e.target.value });
-      };
-
-      addSmurf = e => {
-        e.preventDefault();
-        this.props.addNewSmurf(this.state.newSmurf);
-        this.setState({newSmurf:''});
+        this.setState({
+            formValues: {
+                ...this.state.formValues,
+                [e.target.name]: e.target.value
+            }
+        })
       };
 
     render() {
         return(<section>
             <h2>Add Smurf</h2>
-            <form>
+            <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="name">Name:</label><br/>
-                    <input onChange={this.handleChange} name="name" id="name" />
+                    <input onChange={this.handleChange} name="name" id="name" value={this.state.formValues.name} />
                 </div>
 
                 <div className="form-group">
                     <label htmlFor="position">Position:</label><br/>
-                    <input onChange={this.handleChange} name="position" id="position" />
+                    <input onChange={this.handleChange} name="position" id="position" value={this.state.formValues.position} />
                 </div>
 
                 <div className="form-group">
                     <label htmlFor="nickname">Nickname:</label><br/>
-                    <input onChange={this.handleChange} name="nickname" id="nickname" />
+                    <input onChange={this.handleChange} name="nickname" id="nickname" value={this.state.formValues.nickname} />
                 </div>
 
                 <div className="form-group">
                     <label htmlFor="description">Description:</label><br/>
-                    <input onChange={this.handleChange} name="description" id="description" />
+                    <input onChange={this.handleChange} name="description" id="description" value={this.state.formValues.description} />
                 </div>
 
                 <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: </div>
 
-                <button onClick={this.addSmurf}>Submit Smurf</button>
+                <button>Submit Smurf</button>
             </form>
         </section>);
     }
 }
 
-export default AddForm;
+const mapStateToProps = state => {
+    return {};
+  };
+
+export default connect(mapStateToProps, { addNewSmurf })(AddForm);
 
 //Task List:
 //1. Add in all necessary import components and library methods.
