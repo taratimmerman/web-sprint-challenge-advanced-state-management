@@ -1,4 +1,11 @@
-import {FETCHING_SMURFS_START, FETCHING_SMURFS_SUCCESS, FETCHING_SMURFS_FAIL, ADD_SMURF} from '../actions';
+import {
+    FETCHING_SMURFS_START, 
+    FETCHING_SMURFS_SUCCESS, 
+    FETCHING_SMURFS_FAIL,
+    ADDING_SMURFS_START,
+    ADDING_SMURFS_SUCCESS,
+    ADDING_SMURFS_FAIL
+} from '../actions';
 
 //1. Add in the initialState needed to hold: 
 export const initialState = {
@@ -26,24 +33,25 @@ export const reducer = (state = initialState, action) => {
         return({
             ...state,
             isFetching: false,
-            smurfs: [...action.payload]
+            smurfs: [...action.payload],
         })
         case(FETCHING_SMURFS_FAIL):
         return({
             ...state,
             error: action.payload
         })
-        case(ADD_SMURF):
-        const newSmurf = {
-            name: action.payload,
-            position: action.payload,
-            nickname: action.payload,
-            description: action.payload   
-        };
-        return({
-            ...state,
-            smurfs: [...state.smurfs, newSmurf]
-        })
+        case(ADDING_SMURFS_SUCCESS):
+            return({
+                ...state,
+                isFetching: false,
+                smurfs: [...state.smurfs, action.payload]
+            })
+        case(ADDING_SMURFS_FAIL):
+            return({
+                ...state,
+                isPosting: false,
+                error: 'Could not post'
+            })
         default:
             return(state)
     }

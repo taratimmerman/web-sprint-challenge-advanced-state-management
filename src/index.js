@@ -19,12 +19,10 @@ const rootElement = document.getElementById("root");
 const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
-// Wrapped the App component in a react-redux Provider element
+    // Wrapped the App component in a react-redux Provider element
     <Provider store={store}>
-
-    <App />
-
-</Provider>,
+        <App />
+    </Provider>,
     rootElement
 );
 

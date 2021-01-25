@@ -2,15 +2,20 @@ import React from 'react';
 
 class Smurf extends React.Component {
     render() {
+      //1. Access smurf to be displayed through props.
         const { smurf } = this.props;
 
         return (
             <div data-testid="smurf" className="card">
-                <p>{smurf}</p>
+              {/* 2. Display the name, position, nickname and description of the provided smurf as needed. */}
+                <h5>{smurf.name}</h5>
+                <h6>{smurf.nickname}</h6>
+                <h6>{smurf.position}</h6>
+                <p>{smurf.decription}</p>
             </div>
-        );
-    }
-}
+          );
+        }
+      }
 
 export default Smurf;
 

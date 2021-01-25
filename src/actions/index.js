@@ -4,7 +4,9 @@ export const FETCHING_SMURFS_START = 'FETCHING_SMURFS_START';
 export const FETCHING_SMURFS_SUCCESS = 'FETCHING_SMURFS_SUCCESS';
 export const FETCHING_SMURFS_FAIL = 'FETCHING_SMURFS_FAIL';
 
-export const ADD_SMURF = 'ADD_SMURF';
+export const ADDING_SMURFS_START = 'ADDING_SMURFS_START';
+export const ADDING_SMURFS_SUCCESS = 'ADDING_SMURFS_SUCCESS';
+export const ADDING_SMURFS_FAIL = 'ADDING_SMURFS_FAIL';
 
 //1. Add fetch smurfs action: 
 export const fetchSmurfs = () => {
@@ -26,11 +28,16 @@ export const fetchSmurfs = () => {
 }
 
 //2. Add add smurf action:
-export const addNewSmurf = (newSmurf) => {
-    return{
-        type: ADD_SMURF,
-        payload: newSmurf
-    };
+export const addSmurfs = (newSmurf) => (dispatch) => {
+    dispatch({type: ADDING_SMURFS_START});
+        axios  
+            .post('http://localhost:3333/smurfs', newSmurf)
+            .then((res) => {
+                dispatch({type: ADDING_SMURFS_SUCCESS, payload: newSmurf})
+            })
+            .catch(err => {
+                dispatch({type: ADDING_SMURFS_FAIL, payload: err.response})
+            })
 }
 
 //Task List:

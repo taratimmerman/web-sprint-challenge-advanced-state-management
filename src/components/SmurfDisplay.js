@@ -1,38 +1,37 @@
-import React from 'react';
-import { connect } from 'react-redux';
+//1. Import in all needed components and library methods.
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { fetchSmurfs } from '../actions';
+import Smurf from './Smurf';
 
-export class SmurfDisplay extends React.Component {
+export const SmurfDisplay = () => {
 
-    componentDidMount() {
-        this.props.fetchSmurfs();
-    }
+    const dispatch = useDispatch();
 
-    render() {
+    //2. Connect all needed redux state props and action functions to the component before exporting.
+    //3. Fetch all smurfs when the component first mounts.
+    useEffect(() => {
+        dispatch(fetchSmurfs());
+    }, []);
 
-        return(
-            <div>
-                {this.props.smurfs.map(smurf => {
-                    return (
-                        <div>
-                            <h4>{smurf.name}</h4>
-                            <p>Nickname: {smurf.nickname}</p>
-                            <p>Position: {smurf.position}</p>
-                            <p>Description: {smurf.description}</p>
-                        </div>
-                    )
-                })}
-            </div>)
-    }
-}
+    const smurfs = useSelector((state) => state.smurfs);
+    //4. Render loading text or graphic if the application is currently loading.
+    const isLoading = useSelector((state) => state.isFetching);
 
-const mapStateToProps = state => {
-    return {
-      smurfs: state.smurfs
+    return (
+        <div>
+          {/* 5. Render a list of all Smurfs using the Smurf component if the application is not currently loading. */}
+          {isLoading ? (
+            <h1>Loading Smurfs</h1>
+          ) : (
+            smurfs.map((smurf) => <Smurf smurf={smurf} key={smurf.id} />)
+          )}
+          <div></div>
+        </div>
+      );
     };
-  };
-
-export default connect(mapStateToProps, { fetchSmurfs })(SmurfDisplay);
+    
+    export default SmurfDisplay;
 
 //Task List:
 //1. Import in all needed components and library methods.
